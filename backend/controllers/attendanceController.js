@@ -61,13 +61,13 @@ exports.logout = async (req, res) => {
 
     // Afternoon Session
     if ((hour === 13 && minute >= 0) || (hour === 14 && minute <= 5)) {
-      statusUpdate = "Present"; // Between 1:00-2:05pm
-    } else if (hour >= 14 && hour < 17) {
-      statusUpdate = "Early Logout"; // before 5pm
-    } else if (hour >= 17 && hour <= 18) {
-      statusUpdate = "Normal Logout"; // 5:00 - 6:00pm
-    } else if (hour > 18) {
-      statusUpdate = "Normal Logout"; // after 6pm still valid
+      statusUpdate = "Present"; // 1:00 PM - 2:05 PM
+    } else if (hour > 14 && hour < 17) {
+      statusUpdate = "Absent"; // 2:06 PM - 4:59 PM
+    } else if (hour >= 17 && hour < 18) {
+      statusUpdate = "Early Logout"; // 5:00 PM - 5:59 PM
+    } else if (hour >= 18) {
+      statusUpdate = "Normal Logout"; // 6:00 PM onwards
     }
 
     const [result] = await db.query(
@@ -91,6 +91,7 @@ exports.logout = async (req, res) => {
     res.status(500).json({ error: "Failed to mark logout" });
   }
 };
+
 
 /**
  * List attendance
@@ -243,7 +244,7 @@ exports.exportPdf = async (req, res) => {
       date: 30,
       empId: 90,
       name: 140,
-      dept: 265,
+      dept: 270,
       login: 370,
       logout: 430,
       status: 490,
