@@ -247,7 +247,7 @@ exports.exportPdf = async (req, res) => {
       dept: 270,
       login: 370,
       logout: 430,
-      status: 490,
+      status: 500,
       // lat: 570,
       // lng: 630,
     };

@@ -30,6 +30,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/leaves", leaveRoutes);
 app.use("/api/attendance", attendanceRoutes);
 
+
 app.get("/", (_req, res) => res.send("LeaveMate API running 🚀"));
 
 const PORT = process.env.PORT || 3000;
