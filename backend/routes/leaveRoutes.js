@@ -25,3 +25,4 @@ router.get("/approved", verifyToken, requireRole("admin"), leaveController.appro
 router.get("/rejected", verifyToken, requireRole("admin"), leaveController.rejected);
 
 module.exports = router;
+

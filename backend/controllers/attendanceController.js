@@ -252,7 +252,6 @@ exports.exportPdf = async (req, res) => {
       // lng: 630,
     };
 
-    
     doc.fontSize(10).text("Date", itemX.date, tableTop);
     doc.text("EmpId", itemX.empId, tableTop);
     doc.text("Name", itemX.name, tableTop);
