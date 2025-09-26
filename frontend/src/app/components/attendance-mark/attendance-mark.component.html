@@ -1,0 +1,81 @@
+<div class="container mt-4" style="max-width: 800px;">
+  <div class="card shadow rounded-4 border-0">
+    <div class="card-body p-4">
+      <!-- Title -->
+      <div class="d-flex align-items-center mb-4" style="color: #0f7a88;">
+        <i class="bi bi-person-check fs-3 me-2" style="color: #0f7a88;"></i>
+        <h3 class="fw-bold mb-0 fs-4" style="color: #0f7a88;">Mark Attendance</h3>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <p>
+            Today:
+            <strong>{{ today | date: "dd-MM-yyyy" }} - {{ currentTime | date: "hh:mm a" }}</strong>
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="col-md-6">
+          <div class="d-flex flex-row justify-content-end gap-2 mb-4">
+            <button class="btn btn-gradient-success btn-sm d-flex align-items-center" (click)="login()">
+              <i class="bi bi-box-arrow-in-right me-1"></i> Login
+            </button>
+
+            <button class="btn btn-gradient-danger btn-sm d-flex align-items-center" (click)="logout()">
+              <i class="bi bi-box-arrow-left me-1"></i> Logout
+            </button>
+          </div>
+        </div>
+
+        <!-- Attendance Table -->
+        <h5 class="fw-semibold mb-3" style="color: #031b1f;">Today's Attendance</h5>
+        <div *ngIf="attendanceList.length; else noRecords" class="table-responsive">
+          <table class="table table-hover align-middle text-center mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>Date</th>
+                <th>Login</th>
+                <th>Logout</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of attendanceList">
+                <td>{{ formatDateTime(row.date) | date:'d MMM y' }}</td>
+                <td>{{ formatTime(row.login_time) || '-' }}</td>
+                <td>{{ formatTime(row.logout_time) || '-' }}</td>
+                <td>
+                  <span class="badge badge-sm rounded-pill d-inline-flex align-items-center" [ngClass]="{
+                      'bg-success': row.status==='Present' || row.status==='Normal Logout',
+                      'bg-warning text-dark': row.status==='Late' || row.status==='Early Logout',
+                      'bg-danger': row.status==='Absent' || row.status==='Not Logged Out'
+                }">
+
+                    <i class="bi me-2 py-1" [ngClass]="{
+                      'bi-check-circle-fill': row.status==='Present' || row.status==='Normal Logout',
+                      'bi-alarm-fill': row.status==='Late',
+                      'bi-box-arrow-left': row.status==='Early Logout',
+                      'bi-x-circle-fill': row.status==='Absent' || row.status==='Not Logged Out'
+                }">
+                    </i>
+
+                    {{ row.status }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- No Records -->
+        <ng-template #noRecords>
+          <div class="alert alert-info d-flex align-items-center mt-3">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            No attendance marked yet.
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

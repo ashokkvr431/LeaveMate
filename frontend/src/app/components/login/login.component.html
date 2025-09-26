@@ -1,0 +1,53 @@
+<div class="container-fluid min-vh-100 d-flex align-items-start justify-content-center mt-5 bg-gradient">
+  <div class="card shadow-lg border-0 " style="width: 28rem; max-width: 100vw; min-width: 28vw;">
+    <div class="card-header bg-transparent border-0 text-center py-4">
+      <h3 class="mb-0 fw-bold text-primary">
+        Sign In 
+      </h3>
+    </div>
+
+    <div class="card-body px-5 pb-5">
+      <form #form="ngForm" (ngSubmit)="login(form)" novalidate>
+
+        <div class="form-floating mb-3">
+          <input type="email" class="form-control border-2" id="email" placeholder="Enter your email" ngModel name="email" required email />
+          <label for="email">Email Address</label>
+          <div class="invalid" *ngIf="form.controls['email']?.['touched'] && form.controls['email']?.errors">
+            <div *ngIf="form.controls['email']?.['errors']?.['required']">
+              Email is required
+            </div>
+            <div *ngIf="form.controls['email']?.['errors']?.['email']">
+              Please enter a valid email
+            </div>
+          </div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control border-2" id="password" placeholder="Enter your password" ngModel name="password" required minlength="6" />
+          <label for="password">Password</label>
+          <div class="invalid" *ngIf="form.controls['password']?.['touched'] && form.controls['password']?.errors">
+            <div *ngIf="form.controls['password']?.['errors']?.['required']">
+              Password is required
+            </div>
+            <div *ngIf="form.controls['password']?.['errors']?.['minlength']">
+              Password must be at least 6 characters
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid mb-3">
+          <button class="btn btn-primary btn-lg py-2 fw-bold shadow-sm submit-btn" [disabled]="form.invalid"
+            [class.btn-secondary]="form.invalid">
+            Sign In
+            <span *ngIf="form.invalid" class="badge bg-light text-dark ms-2">
+            </span>
+          </button>
+        </div>
+
+        <div class="text-center">
+          <p class="text-muted mb-0"> Don't have an account? <a routerLink="/register" class="text-primary text-decoration-none fw-bold"> Create Account </a> </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+.container {
+  max-width: 800px;
+}
+button {
+  min-width: 100px;
+}
+
+/* Smaller gradient buttons */
+.btn-gradient-success {
+  background: linear-gradient(135deg, #1a7c31, #1a7c31);
+  color: #fff;
+  font-weight: 500;
+}
+
+.btn-gradient-danger {
+  background: linear-gradient(135deg, #ff1c33, #c90418);
+  color: #fff;
+  font-weight: 500;
+}
+
+/* btn-sm overrides */
+.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  
+}

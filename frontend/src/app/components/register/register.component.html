@@ -1,0 +1,137 @@
+<div class="container-fluid min-vh-100 d-flex align-items-start justify-content-center mt-5 bg-gradient">
+  <div class="card shadow-lg border-0" style="width: 28rem; max-width: 100vw; min-width: 28vw;">
+    <div class="card-header bg-transparent border-0 text-center py-4">
+      <h3 class="mb-0 fw-bold text-primary">
+        Create Account
+      </h3>
+    </div>
+
+    <div class="card-body px-4 pb-4">
+      <form #form="ngForm" (ngSubmit)="signin(form)" novalidate>
+
+        <div class="form-group form-floating mb-3">
+          <input type="text" class="form-control border-2" id="name" placeholder="Enter your full name" ngModel name="name" required minlength="3" pattern="[A-Za-z\s]+" oninput="this.value = this.value.replace(/[^A-Za-z\s]/g, '');"/>
+          <label for="name">Full Name</label>
+          <div class="invalid-feedback d-block " *ngIf="form.controls['name']?.['touched'] && form.controls['name']?.errors">
+            <div *ngIf="form.controls['name']?.['errors']?.['required']">
+              Full name is required
+            </div>
+            <div *ngIf="form.controls['name']?.['errors']?.['minlength']">
+              Name must be at least 3 characters
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group form-floating mb-3">
+          <input type="email" class="form-control border-2" id="email" placeholder="Enter your email" ngModel name="email" required email pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" oninput="this.value = this.value.replace(/[^a-zA-Z0-9._%+-@]/g, '');"/>
+          <label for="email">Email Address</label>
+          <div class="invalid-feedback d-block" *ngIf="form.controls['email']?.['touched'] && form.controls['email']?.errors">
+            <div *ngIf="form.controls['email']?.['errors']?.['required']">
+              Email is required
+            </div>
+            <div *ngIf="form.controls['email']?.['errors']?.['email']">
+              Please enter a valid email
+            </div>
+          </div>
+        </div>  
+
+        <div class="form-group form-floating mb-3">
+          <input type="tel" class="form-control border-2" id="phone" ngModel placeholder="Enter your phone number" name="phone" required pattern="[0-9]{10}" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="10" minlength="10" maxlength="10" />
+          <label for="phone">Phone Number</label>
+          <div class="invalid-feedback d-block" *ngIf="form.controls['phone']?.['touched'] && form.controls['phone']?.errors">
+            <div *ngIf="form.controls['phone']?.['errors']?.['required']">
+              Phone number is required
+            </div>
+            <div *ngIf="form.controls['phone']?.['errors']?.['minlength'] || form.controls['phone']?.['errors']?.['pattern']">
+              Please enter a valid 10-digit phone number
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group form-floating mb-3">
+              <input type="password" class="form-control border-2" id="password" placeholder="Password" ngModel name="password" required minlength="6" />
+              <label for="password"> Password </label>
+              <div class="invalid-feedback d-block" *ngIf="form.controls['password']?.['touched'] && form.controls['password']?.errors">
+                <div *ngIf="form.controls['password']?.['errors']?.['required']">
+                  Password is required
+                </div>
+                <div *ngIf="form.controls['password']?.['errors']?.['minlength']">
+                  Min 6 characters
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group form-floating mb-3">
+              <input type="password" class="form-control border-2" id="cpassword" placeholder="Confirm password" ngModel name="cpassword" required />
+              <label for="cpassword"><i class="fas fa-lock me-2"></i>Confirm</label>
+              <div class="invalid-feedback d-block"
+                *ngIf="form.controls['cpassword']?.['touched'] && form.controls['cpassword']?.['value'] != form.controls['password']?.['value']">
+                Passwords must match
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="form-group form-floating mb-3">
+              <select class="form-select border-2" id="role" placeholder="Select" ngModel name="role" required>
+                <option selected disabled value="">Choose...</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+              <label for="role">Role</label>
+              <div class="invalid-feedback d-block" *ngIf="form.controls['role']?.['touched'] && form.controls['role']?.errors">
+                <div *ngIf="form.controls['role']?.['errors']?.['required']">
+                  Please select a role
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label text-muted small fs-6">
+              Gender
+            </label>
+            <div class="d-flex gap-3 mt-0">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" ngModel name="gender" value="M" id="male" required>
+                <label class="form-check-label" for="male">
+                  Male
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" ngModel name="gender" value="F" id="female" required>
+                <label class="form-check-label" for="female">
+                  Female
+                </label>
+              </div>
+            </div>
+            <div class="invalid-feedback d-block" *ngIf="form.controls['gender']?.['touched'] && form.controls['gender']?.errors">
+              <div *ngIf="form.controls['gender']?.['errors']?.['required']">
+                Please select gender
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-grid mb-3 mt-3">
+          <button class="btn btn-primary btn-lg py-2 fw-bold shadow-sm submit-btn" type="submit" [disabled]="form.invalid"
+            [class.btn-secondary]="form.invalid">
+            Create Account
+            <span *ngIf="form.invalid" class="badge bg-light text-dark ms-2">
+            </span>
+          </button>
+        </div>
+
+        <div class="text-center">
+          <p class="text-muted mb-0"> Already have an account? <a routerLink="/login" class="text-primary text-decoration-none fw-bold"> Sign In </a> </p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

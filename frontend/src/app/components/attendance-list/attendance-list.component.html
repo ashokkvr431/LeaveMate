@@ -1,0 +1,60 @@
+<div class="container mt-4" style="max-width: 800px;">
+  <div class="card shadow rounded-4 border-0">
+    <div class="card-body p-4">
+      <!-- Title -->
+      <!-- Attendance History Header -->
+      <div class="d-flex align-items-center mb-4" style="color: #0f7a88;">
+        <i class="bi bi-calendar-week fs-4 me-2" style="color: #0f7a88; "></i>
+        <h3 class="fw-bold mb-0 fs-4" style="color: #0f7a88;">Attendance History</h3>
+      </div>
+
+      <!-- No Records -->
+      <div *ngIf="!records?.length" class="alert alert-info d-flex align-items-center">
+        <i class="bi bi-info-circle-fill me-2"></i> No attendance records found.
+      </div>
+
+      <!-- Table -->
+      <div *ngIf="records?.length">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle text-center">
+            <thead class="table-light">
+              <tr>
+                <th>S.No</th>
+                <th>Date</th>
+                <th>Login</th>
+                <th>Logout</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let r of records; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ formatDateTime(r.date) || r.date }}</td>
+                <td>{{ formatTime(r.login_time) || '-' }}</td>
+                <td>{{ formatTime(r.logout_time) || '-' }}</td>
+                <td>
+                  <span class="badge badge-sm rounded-pill d-inline-flex align-items-center" [ngClass]="{
+                      'bg-success': r.status==='Present' || r.status==='Normal Logout',
+                      'bg-warning text-dark': r.status==='Late' || r.status==='Early Logout',
+                      'bg-danger': r.status==='Absent' || r.status==='Not Logged Out'
+                }">
+
+                    <i class="bi me-2 py-1" [ngClass]="{
+                      'bi-check-circle-fill': r.status==='Present' || r.status==='Normal Logout',
+                      'bi-alarm-fill': r.status==='Late',
+                      'bi-box-arr-left': r.status==='Early Logout',
+                      'bi-x-circle-fill': r.status==='Absent' || r.status==='Not Logged Out'
+                }">
+                    </i>
+
+                    {{ r.status }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

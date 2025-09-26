@@ -1,0 +1,97 @@
+<div class="container mt-4" style="max-width: 750px;">
+  <div class="card shadow rounded-4 border-0">
+    <div class="card-body p-4">
+      <!-- Title -->
+      <h3 class="mb-4 fw-bold fs-4 text-primary ">
+        <i class="bi bi-calendar-check me-2"></i> 
+        Apply for Leave
+      </h3>
+
+      <!-- Success & Error Messages -->
+      <div *ngIf="msg" class="alert alert-success d-flex align-items-center">
+        <i class="bi bi-check-circle-fill me-2"></i> {{ msg }}
+      </div>
+      <div *ngIf="err" class="alert alert-danger d-flex align-items-center">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ err }}
+      </div>
+
+      <!-- Leave Balance Info -->
+      <div class="alert alert-info d-flex align-items-center mb-4">
+        <i class="bi bi-info-circle-fill me-2"></i>
+        <div>
+          <b>Sick:</b> {{ leaveBalance.sick }} &nbsp; | 
+          <b>Casual:</b> {{ leaveBalance.casual }} &nbsp; | 
+          <b>Earned:</b> {{ leaveBalance.earned }}
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form (ngSubmit)="submit()" #f="ngForm" novalidate>
+        <div class="row">
+          <!-- Leave Type -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Leave Type <span class="text-danger">*</span></label>
+            <select class="form-select shadow-sm" [(ngModel)]="form.leave_type_id" name="leave_type_id" required>
+              <option value="">-- Select --</option>
+              <option value="1">Sick Leave</option>
+              <option value="2">Casual Leave</option>
+              <option value="3">Earned Leave</option>
+            </select>
+          </div>
+
+          <!-- Duration -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Duration <span class="text-danger">*</span></label>
+            <select class="form-select shadow-sm" [(ngModel)]="form.duration" name="duration" required (change)="updateDays()">
+              <option value="full">Full Day</option>
+              <option value="half">Half Day</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Start Date -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">Start Date <span class="text-danger">*</span></label>
+            <input class="form-control shadow-sm" type="date" [(ngModel)]="form.start_date" name="start_date" required (change)="updateDays()">
+          </div>
+
+          <!-- End Date -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label fw-semibold">End Date <span class="text-danger">*</span></label>
+            <input class="form-control shadow-sm" type="date" [(ngModel)]="form.end_date" name="end_date" required (change)="updateDays()">
+          </div>
+        </div>
+
+        <!-- Auto Calculate Days -->
+        <div *ngIf="totalDays > 0" class="alert alert-secondary d-flex align-items-center">
+          <i class="bi bi-clock-history me-2"></i> 
+          You are applying for <b>{{ totalDays }}</b> day(s).
+        </div>
+
+        <!-- Reason -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Reason <span class="text-danger">*</span></label>
+          <input class="form-control shadow-sm" type="text" [(ngModel)]="form.reason" name="reason" required placeholder="Enter reason">
+        </div>
+
+        <!-- Notes -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Additional Notes</label>
+          <textarea class="form-control shadow-sm" rows="2" [(ngModel)]="form.notes" name="notes" placeholder="Optional"></textarea>
+        </div>
+
+        <!-- File Upload -->
+        <div class="mb-3">
+          <label class="form-label fw-semibold">Attachment</label>
+          <input class="form-control shadow-sm" type="file" (change)="onFileSelected($event)">
+        </div>
+
+        <!-- Submit -->
+        <button class="btn btn-info px-4 py-1 rounded-4 shadow-sm" [disabled]="f.invalid">
+          <i class="bi bi-send me-1"></i> Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

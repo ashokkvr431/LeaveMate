@@ -1,0 +1,32 @@
+<div class="container mt-5" style="max-width: 700px;">
+  <div class="card shadow-rounded-4 border-1 shadow p-4" style="min-height: 300px;">
+    <h5 class="ml-3">Profile Details</h5><hr>
+    <div class="row g-3 align-items-center">
+
+      <!-- Left: Photo + Basic Info -->
+      <div class="col-md-5 text-center mt-4">
+        <img
+          [src]="user?.photo || 'assets/default-profile.png'"
+          class="rounded-circle border border-2 border-light"
+          alt="Profile"
+          width="160"
+          height="160"
+        />
+
+        <h5 class="mb-1 fw-bold mt-4">{{ user?.name || '-' }}</h5>
+        <h5 class="text-muted fs-6"> {{ user?.department || '-' }}</h5>
+        <a routerLink="/profile/edit" class="btn btn-primary btn-sm px-3 mt-2">Edit Profile</a>
+      </div>
+
+      <!-- Right: Details -->
+      <div class="col-md-7 ">
+        <p><b>Employee ID:</b> {{ user?.empId || '-' }}</p>
+        <p><b>Phone:</b> {{ user?.phone || '-' }}</p>
+        <p><b>Email ID:</b> {{ user?.email || '-' }}</p>
+        <p><b>Gender:</b> {{ user?.gender || '-' }}</p>
+        <p><b>Role:</b> {{ user?.role || '-' }}</p>
+      </div>
+
+    </div>
+  </div>
+</div>

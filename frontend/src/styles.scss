@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+// @import 'bootstrap/scss/bootstrap';
+
+/* Bootstrap CSS */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+
+/* Bootstrap Icons */
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+/* Your custom styles */
+body {
+  font-family: Arial, sans-serif;
+}

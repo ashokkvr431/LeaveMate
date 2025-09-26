@@ -1,0 +1,91 @@
+<!-- <app-navbar></app-navbar> -->
+
+<div class="container mt-4">
+  <h4 class="fw-bold mb-3 ">Welcome to <span class="brand">LeaveMate</span></h4>
+  <p class="text-muted  "> Today: <strong>{{ today | date: "dd-MM-yyyy" }}</strong></p>
+
+  <div class="row g-4 mt-5">
+    <div class="col-md-6" *ngIf="auth.isUser()">
+      <div class="card shadow border-0 h-80">
+        <div class="card-body text-center">
+          <i class="bi bi-person-dash text-info fs-2" style="color: #49a0b6;"></i>
+          <h5 class="card-title">Leaves Remaining</h5>
+          <p class="text-muted">Your available leave balance.</p>
+          <h3 class="fw-bold text-info" style="color: #49a0b6;">12</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" *ngIf="auth.isUser()">
+      <div class="card shadow border-0 h-80">
+        <div class="card-body text-center">
+          <i class="bi bi-bar-chart-line text-success fs-2 mb-2" ></i>
+          <h5 class="card-title">Attendance %</h5>
+          <p class="text-muted">Your current attendance rate.</p>
+          <h3 class="fw-bold text-success">96%</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="row g-4 mt-2">
+    <div class="col-md-6" *ngIf="auth.isUser()">
+      <div class="card shadow border-0 h-100">
+        <div class="card-body mb-2 mt-2">
+          <div class="d-flex flex-column align-items-center justify-content-center">
+            <h5 class="card-title d-flex align-items-center mb-2">
+              <i class="bi bi-person-fill-dash text-info me-2 fs-4" style="color: #4bb4a3;"></i> Leaves
+            </h5>
+            <p class="text-muted">Manage your leaves easily with quick actions below.</p>
+            <div class="d-flex flex-row align-items-center justify-content-center mb-2">
+              <a routerLink="/user/leave/apply" class="btn btn-info btn-sm me-2" style="color: #ffffff;">
+                <i class="bi bi-pencil-square me-1" style="color: #e9fffb;"></i> Apply Leave
+              </a>
+              <a routerLink="/user/leave/my" class="btn btn-outline-info btn-sm" >
+                <i class="bi bi-list-check me-1" ></i> My Leaves
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6" *ngIf="auth.isUser()">
+      <div class="card shadow border-0 h-100">
+        <div class="card-body mb-2 mt-2">
+          <div class="d-flex flex-column align-items-center justify-content-center">
+            <h5 class="card-title d-flex align-items-center mb-2">
+              <i class="bi bi-check-circle-fill text-success me-2"></i> Attendance
+            </h5>
+            <p class="text-muted">Track and review your daily attendance records.</p>
+            <div class="d-flex justify-content-center mb-2">
+              <a routerLink="/user/attendance/mark" class="btn btn-success btn-sm me-2" >
+                <i class="bi bi-check2-circle me-1"></i> Mark Today
+              </a>
+              <a routerLink="/user/attendance/list" class="btn btn-outline-success btn-sm">
+                <i class="bi bi-clock-history me-1"></i> View Logs
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4 mt-4">
+    <div class="col-md-12" *ngIf="auth.isUser()">
+      <div class="card shadow border-0 h-80" 
+           style="cursor: pointer;" 
+           routerLink="/announcements">
+        <div class="card-body text-center">
+          <i class="bi bi-megaphone fs-2" style="color: #649b75;"></i>
+          <h5 class="card-title">Announcements</h5>
+          <p class="text-muted">Stay updated with the latest company news and events.</p>
+          <h6 class="fw-bold text-success">View Updates</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

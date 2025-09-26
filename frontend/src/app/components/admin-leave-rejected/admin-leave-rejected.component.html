@@ -1,0 +1,50 @@
+<div class="container-fluid mt-4">
+  <div class="card shadow rounded-4 border-0 mx-auto" style="max-width: 1200px;">
+    <div class="card-body p-4">
+        <div class="d-flex align-items-center mb-3">
+            <h3 class="fw-bold fs-4 text-danger gap-2" style="color: rgb(139, 40, 40);">
+             <i class="bi bi-patch-exclamation-fill text-danger me-2" style="color: rgb(131, 24, 24);"></i>Rejected Leaves</h3>
+        </div>
+  
+
+  <div *ngIf="err" class="alert alert-danger">{{ err }}</div>
+
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>S.No</th>
+          <th>Employee</th>
+          <th>Emp_ID</th>
+          <th>Leave</th>
+          <th>Dates</th>
+          <th>Days</th>
+          <th>Reason</th>
+          <th>Attachment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of rows; let i = index">
+          <td>{{ i+1 }}</td>
+          <td>{{ r.emp_name }}</td>
+          <td>{{ r.emp_id }}</td>
+          <td>{{ r.leave_type_name }}</td>
+          <td>{{ r.start_date | date:'yyyy-MM-dd' }} → {{ r.end_date | date:'yyyy-MM-dd' }}</td>
+          <td>{{ r.days }}</td>
+          <td>{{ r.reason }}</td>
+          <td>
+            <ng-container *ngIf="r.file_url; else noFile">
+              <a [href]="'http://10.70.9.8:3000' + r.file_url" target="_blank">
+                <i class="bi bi-paperclip fs-5"></i>
+              </a>
+            </ng-container>
+            <ng-template #noFile>-</ng-template>
+          </td>
+        </tr>
+        <tr *ngIf="!rows?.length">
+          <td colspan="8" class="text-center text-muted">No rejected leaves found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
