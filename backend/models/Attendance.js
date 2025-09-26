@@ -28,3 +28,4 @@ exports.allAttendance = async () => {
   );
   return rows;
 };
+

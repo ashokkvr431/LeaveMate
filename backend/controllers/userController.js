@@ -18,3 +18,4 @@ exports.remove = async (req, res) => {
   await db.query('DELETE FROM users WHERE id=?', [id]);
   res.json({ message: 'User deleted' });
 };
+

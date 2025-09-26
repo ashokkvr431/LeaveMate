@@ -52,28 +52,3 @@ router.put('/me', verifyToken, upload.single('photo'), async (req, res) => {
 
 
 module.exports = router;
-
-
-
-// const express = require("express");
-// const router = express.Router();
-// const multer = require("multer");
-// const path = require("path");
-// const { me, updateMe } = require("../controllers/profileController");
-// const { verifyToken } = require("../middleware/auth");
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => cb(null, "uploads/"),
-//   filename: (req, file, cb) =>
-//     cb(null, Date.now() + path.extname(file.originalname)),
-// });
-
-// const upload = multer({ storage });
-
-// // GET profile
-// router.get("/me", verifyToken, me);
-
-// // UPDATE profile with optional photo
-// router.put("/me", verifyToken, upload.single("photo"), updateMe);
-
-// module.exports = router;
