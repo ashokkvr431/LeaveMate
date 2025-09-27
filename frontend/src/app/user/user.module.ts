@@ -3,8 +3,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserRoutingModule } from './user-routing.module';
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
-import { QRCodeModule } from 'angularx-qrcode';
 
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { LeaveRequestComponent } from '../components/leave-request/leave-request.component';
@@ -18,16 +16,13 @@ import { AttendanceListComponent } from '../components/attendance-list/attendanc
     LeaveRequestComponent,
     MyLeavesComponent,
     AttendanceMarkComponent,
-    AttendanceListComponent
+    AttendanceListComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    UserRoutingModule,
-    ZXingScannerModule,
-    QRCodeModule
-    
+    UserRoutingModule,  
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

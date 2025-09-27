@@ -1,29 +1,34 @@
-const db = require("../config/db");  //  FIX: import db
+const db = require("../config/db");
+
+// Helper: get frontend URL with fallback
+const getFrontendUrl = () => process.env.FRONTEND_URL || "http://10.70.9.8:4200";
 
 // GET /api/profile/me
 exports.me = async (req, res) => {
   try {
-    console.log(" req.user:", req.user);
-
     const [rows] = await db.query(
-      "SELECT id, name, email, phone, gender, role, department, photo FROM users WHERE id=?",
+      "SELECT id, empId, name, email, phone, gender, role, department, photo FROM users WHERE id=?",
       [req.user.id]
     );
 
     if (!rows.length) {
-      return res.status(404).json({ message: "Not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     let user = rows[0];
 
+    // If user has uploaded photo → show it
     if (user.photo) {
       user.photo = `${req.protocol}://${req.get("host")}/uploads/${user.photo}`;
+    } else {
+      // Serve default image from frontend
+      user.photo = `${getFrontendUrl()}/assets/default-profile.png`;
     }
 
     res.json(user);
   } catch (err) {
-    console.error(" Profile fetch error:", err);
-    res.status(500).json({ message: "Server error", error: err.message });
+    console.error("Profile fetch error:", err);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -31,10 +36,17 @@ exports.me = async (req, res) => {
 exports.updateMe = async (req, res) => {
   try {
     const { name, phone, gender, department } = req.body;
-    let photoFile = null;
+    let photoFile;
 
     if (req.file) {
+      // new file uploaded
       photoFile = req.file.filename;
+    } else {
+      // keep old photo if exists, else null (frontend will show default)
+      const [rows] = await db.query("SELECT photo FROM users WHERE id=?", [
+        req.user.id,
+      ]);
+      photoFile = rows[0]?.photo || null;
     }
 
     await db.query(
@@ -44,7 +56,7 @@ exports.updateMe = async (req, res) => {
         phone || null,
         gender || null,
         department || null,
-        photoFile || null,
+        photoFile,
         req.user.id,
       ]
     );
@@ -53,10 +65,10 @@ exports.updateMe = async (req, res) => {
       message: "Profile updated",
       photo: photoFile
         ? `${req.protocol}://${req.get("host")}/uploads/${photoFile}`
-        : null,
+        : `${getFrontendUrl()}/assets/default-profile.png`,
     });
   } catch (err) {
-    console.error(" Profile update error:", err);
+    console.error("Profile update error:", err);
     res.status(500).json({ message: "Server error" });
   }
 };

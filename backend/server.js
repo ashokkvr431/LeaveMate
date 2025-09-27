@@ -9,6 +9,7 @@ const profileRoutes = require("./routes/profileRoutes");
 const userRoutes = require("./routes/userRoutes");
 const leaveRoutes = require("./routes/leaveRoutes");
 const attendanceRoutes = require("./routes/attendanceRoutes");
+const announcementRouter = require("./routes/announcementRoutes");
 
 const app = express();
 
@@ -23,15 +24,17 @@ app.use(session({
 app.use(cors({ origin: "*", allowedHeaders: ["Content-Type", "Authorization"] }));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+console.log("Assets path:", path.join(__dirname, "assets"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/leaves", leaveRoutes);
 app.use("/api/attendance", attendanceRoutes);
+app.use("/api/announcements", announcementRouter);
 
-
-app.get("/", (_req, res) => res.send("LeaveMate API running 🚀"));
+app.get("/", (_req, res) => res.send("LeaveMate API running"));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, "0.0.0.0", () =>

@@ -1,0 +1,81 @@
+<div class="container mt-4">
+  <h3 class="fw-bold mb-3 text-success" >
+    <i class="bi bi-megaphone me-2"></i> Announcements
+  </h3>
+
+  <!-- Success Alert -->
+  <div *ngIf="success" class="alert alert-success">
+    <i class="bi bi-check-circle me-2"></i> {{ success }}
+  </div>
+
+  <!-- Error Alert -->
+  <div *ngIf="error" class="alert alert-danger">
+    <i class="bi bi-exclamation-triangle me-2"></i> {{ error }}
+  </div>
+
+  <!-- Admin Only: Add Announcement -->
+  <div *ngIf="auth.isAdmin()" class="card shadow border-0 mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Create New Announcement</h5>
+      <form (ngSubmit)="addAnnouncement()" #announcementForm="ngForm">
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="newAnnouncement.title"
+            name="title"
+            required
+          >
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Message</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            [(ngModel)]="newAnnouncement.message"
+            name="message"
+            required
+          ></textarea>
+        </div>
+        <button class="btn btn-success btn-sm" type="submit" [disabled]="announcementForm.invalid">
+          <i class="bi bi-plus-circle me-1"></i> Add
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="text-center my-3">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Announcements List -->
+  <div *ngIf="!loading && announcements.length > 0; else noAnnouncements">
+    <div *ngFor="let ann of announcements" class="card shadow border-0 mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ ann.title }}</h5>
+        <p class="card-text">{{ ann.message }}</p>
+        <small class="text-muted">Posted on {{ ann.date | date:'dd-MM-yyyy HH:mm' }}</small>
+
+        <!-- Admin Only: Delete -->
+        <button
+          *ngIf="auth.isAdmin()"
+          class="btn btn-outline-danger btn-sm float-end"
+          (click)="deleteAnnouncement(ann.id!)"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- If no announcements -->
+  <ng-template #noAnnouncements>
+    <div *ngIf="!loading && !error" class="alert alert-info">
+      <i class="bi bi-info-circle me-2"></i> No announcements available.
+    </div>
+  </ng-template>
+</div>

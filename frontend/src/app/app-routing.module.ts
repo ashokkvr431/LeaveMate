@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { AnnouncementsComponent } from './components/announcements/announcements.component';
 
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
@@ -16,6 +17,8 @@ const routes: Routes = [
 
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'profile/edit', component: ProfileEditComponent, canActivate: [AuthGuard] },
+
+  { path: 'announcements', component: AnnouncementsComponent, canActivate: [AuthGuard] },
 
   {
     path: 'user',
