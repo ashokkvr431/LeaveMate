@@ -24,9 +24,21 @@
         <div class="card-body text-center">
           <i class="bi bi-people-fill text-success fs-3"></i>
           <h5 class="card-title">Attendance</h5>
-          <p class="text-muted">View employee attendance.</p>
-          <h3 class="fw-bold text-success">96%</h3>
+          <p class="text-muted">
+            Present: {{ attendanceSummary.present }} / {{ attendanceSummary.total }}
+          </p>
+
+          <!-- Progress Bar -->
+          <div class="progress" style="height: 25px; width: 50%; margin: 0 auto;">
+            <div class="progress-bar bg-success fw-bold" role="progressbar"
+              [style.width.%]="attendanceSummary.percentage" [attr.aria-valuenow]="attendanceSummary.percentage"
+              aria-valuemin="0" aria-valuemax="100">
+              {{ attendanceSummary.percentage }}%
+            </div>
+          </div>
+
         </div>
+
       </div>
     </div>
   </div>

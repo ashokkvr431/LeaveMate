@@ -15,10 +15,7 @@ export class AnnouncementsComponent implements OnInit {
   error: string | null = null;
   success: string | null = null;
 
-  constructor(
-    public auth: AuthService,
-    private announcementService: AnnouncementsService
-  ) { }
+  constructor(public auth: AuthService, private announcementService: AnnouncementsService) { }
 
   ngOnInit(): void {
     this.loadAnnouncements();

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LeaveService } from '../../services/leave.service';
 import { AuthService } from '../../services/auth.service';
+import { AttendanceService } from '../../services/attendance.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -12,14 +13,16 @@ export class AdminDashboardComponent implements OnInit {
   pendingApprovals: number = 0;
   approvedLeaves: number = 0;
   rejectedLeaves: number = 0;
+  attendanceSummary: any = { total: 0, present: 0, absent: 0, percentage: 0 };
 
-  constructor(public authService: AuthService, private leaveService: LeaveService) {}
+  constructor(public authService: AuthService, private leaveService: LeaveService, private attendanceService: AttendanceService) { }
 
   ngOnInit() {
     if (this.authService.isAdmin()) {
       this.loadPendingApprovals();
       this.loadApprovedLeaves();
       this.loadRejectedLeaves();
+      this.loadAttendance();
     }
   }
 
@@ -31,18 +34,18 @@ export class AdminDashboardComponent implements OnInit {
       error: (err: any[]) => {
         console.error("Error fetching", err);
       }
-    }) 
+    })
   }
 
   loadApprovedLeaves() {
     this.leaveService.getApprovedLeaves().subscribe({
       next: (res: any[]) => {
-        this.approvedLeaves = res.length;  
+        this.approvedLeaves = res.length;
       },
       error: (err: any[]) => {
         console.error("Error fetching", err);
       }
-    }) 
+    })
   }
 
   loadRejectedLeaves() {
@@ -55,5 +58,14 @@ export class AdminDashboardComponent implements OnInit {
       }
     })
   }
- 
+
+  loadAttendance() {
+    this.attendanceService.getAttendanceSummary().subscribe({
+      next: (res) => {
+        this.attendanceSummary = res;
+      },
+      error: (err) => console.error("Error fetching attendance", err)
+    });
+  }
+
 }

@@ -14,4 +14,11 @@ router.get("/list/:empId", attendanceController.listByEmp); // by employee
 router.get("/export/excel", attendanceController.exportExcel);
 router.get("/export/pdf", attendanceController.exportPdf);
 
+// Express example (Node.js)
+router.get('/today', async (req, res) => {
+  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+  const records = await Attendance.find({ date: today }); 
+  res.json(records);
+});
+
 module.exports = router;

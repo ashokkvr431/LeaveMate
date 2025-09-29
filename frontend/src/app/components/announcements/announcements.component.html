@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h3 class="fw-bold mb-3 text-success" >
+  <h3 class="fw-bold mb-3 text-success">
     <i class="bi bi-megaphone me-2"></i> Announcements
   </h3>
 
@@ -20,26 +20,14 @@
       <form (ngSubmit)="addAnnouncement()" #announcementForm="ngForm">
         <div class="mb-3">
           <label class="form-label">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            [(ngModel)]="newAnnouncement.title"
-            name="title"
-            required
-          >
+          <input type="text" class="form-control" [(ngModel)]="newAnnouncement.title" name="title" required>
         </div>
         <div class="mb-3">
           <label class="form-label">Message</label>
-          <textarea
-            class="form-control"
-            rows="3"
-            [(ngModel)]="newAnnouncement.message"
-            name="message"
-            required
-          ></textarea>
+          <textarea class="form-control" rows="3" [(ngModel)]="newAnnouncement.message" name="message" required></textarea>
         </div>
         <button class="btn btn-success btn-sm" type="submit" [disabled]="announcementForm.invalid">
-          <i class="bi bi-plus-circle me-1"></i> Add
+          <i class="bi bi-plus-circle me-1"></i> Add announcement
         </button>
       </form>
     </div>
@@ -61,11 +49,8 @@
         <small class="text-muted">Posted on {{ ann.date | date:'dd-MM-yyyy HH:mm' }}</small>
 
         <!-- Admin Only: Delete -->
-        <button
-          *ngIf="auth.isAdmin()"
-          class="btn btn-outline-danger btn-sm float-end"
-          (click)="deleteAnnouncement(ann.id!)"
-        >
+        <button *ngIf="auth.isAdmin()" class="btn btn-outline-danger btn-sm float-end"
+          (click)="deleteAnnouncement(ann.id!)">
           <i class="bi bi-trash"></i>
         </button>
       </div>
