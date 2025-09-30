@@ -14,6 +14,7 @@ export class AdminDashboardComponent implements OnInit {
   approvedLeaves: number = 0;
   rejectedLeaves: number = 0;
   attendanceSummary: any = { total: 0, present: 0, absent: 0, percentage: 0 };
+  todayAttendance: any[] = [];
 
   constructor(public authService: AuthService, private leaveService: LeaveService, private attendanceService: AttendanceService) { }
 
@@ -23,6 +24,7 @@ export class AdminDashboardComponent implements OnInit {
       this.loadApprovedLeaves();
       this.loadRejectedLeaves();
       this.loadAttendance();
+      this.loadTodayAttendance(); 
     }
   }
 
@@ -67,5 +69,14 @@ export class AdminDashboardComponent implements OnInit {
       error: (err) => console.error("Error fetching attendance", err)
     });
   }
+
+  loadTodayAttendance() {
+  this.attendanceService.getTodayAttendance().subscribe({
+    next: (res) => {
+      this.todayAttendance = res;
+    },
+    error: (err) => console.error("Error fetching today's attendance", err)
+  });
+}
 
 }

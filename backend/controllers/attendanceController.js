@@ -349,3 +349,19 @@ exports.summary = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch summary" });
   }
 };
+exports.listToday = async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+      SELECT a.date, a.empId, u.name, u.department,
+             a.login_time, a.logout_time, a.status
+      FROM attendance a
+      JOIN users u ON u.empId = a.empId
+      WHERE a.date = CURDATE()
+      ORDER BY a.empId ASC
+    `);
+    res.json(rows);
+  } catch (err) {
+    console.error("List Today Error:", err);
+    res.status(500).json({ error: "Failed to fetch today's attendance" });
+  }
+};

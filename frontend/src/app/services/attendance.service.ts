@@ -18,6 +18,7 @@ export interface Summary {
 
 @Injectable({ providedIn: 'root' })
 export class AttendanceService {
+  
   private base = 'http://10.70.9.8:3000/api/attendance';
 
   constructor(private http: HttpClient) {}
