@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class LeaveService {
-  private base = 'http://10.70.9.8:3000/api/leaves';
+  private base = 'http://10.70.9.16:3000/api/leaves';
 
   constructor(private http: HttpClient) { }
 

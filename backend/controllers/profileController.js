@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 // Helper: get frontend URL with fallback
-const getFrontendUrl = () => process.env.FRONTEND_URL || "http://10.70.9.8:4200";
+const getFrontendUrl = () => process.env.FRONTEND_URL || "http://10.70.9.16:4200";
 
 // GET /api/profile/me
 exports.me = async (req, res) => {

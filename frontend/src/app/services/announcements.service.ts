@@ -15,7 +15,7 @@ export interface Announcement {
 
 export class AnnouncementsService {
 
-  private apiUrl = "http://10.70.9.8:3000/api/announcements";
+  private apiUrl = "http://10.70.9.16:3000/api/announcements";
 
   constructor(private http: HttpClient) { }
 

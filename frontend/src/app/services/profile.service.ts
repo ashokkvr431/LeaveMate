@@ -5,7 +5,7 @@ import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
-  private base = 'http://10.70.9.8:3000/api/profile';
+  private base = 'http://10.70.9.16:3000/api/profile';
 
   private profileSubject = new BehaviorSubject<any>(null);
   profile$ = this.profileSubject.asObservable();
