@@ -51,11 +51,9 @@ export class AttendanceListComponent implements OnInit {
   }
 
   formatDateTime(datetime: string | null): string {
-    if (!datetime) return '-';
-    // Convert string to Date
+    if (!datetime) return '-'; // Convert string to Date
     const dt = new Date(datetime);
-    // Format: e.g., "Sep 18, 2025, 09:05 AM" hh:mm a'
-    return formatDate(dt, 'd MMM y', 'en-US');
+    return formatDate(dt, 'd MMM y', 'en-US'); // Format: e.g., "Sep 18, 2025, 09:05 AM" hh:mm a'
   }
 
 }
