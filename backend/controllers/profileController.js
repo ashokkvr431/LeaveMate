@@ -35,14 +35,12 @@ exports.me = async (req, res) => {
 // PUT /api/profile/me
 exports.updateMe = async (req, res) => {
   try {
-    const { name, phone, gender, department } = req.body;
+    const { name, phone, gender, department, empId } = req.body;
     let photoFile;
 
     if (req.file) {
-      // new file uploaded
       photoFile = req.file.filename;
     } else {
-      // keep old photo if exists, else null (frontend will show default)
       const [rows] = await db.query("SELECT photo FROM users WHERE id=?", [
         req.user.id,
       ]);
@@ -50,8 +48,9 @@ exports.updateMe = async (req, res) => {
     }
 
     await db.query(
-      "UPDATE users SET name=?, phone=?, gender=?, department=?, photo=? WHERE id=?",
+      "UPDATE users SET empId=?, name=?, phone=?, gender=?, department=?, photo=? WHERE id=?",
       [
+        empId || null,
         name || null,
         phone || null,
         gender || null,
@@ -72,3 +71,4 @@ exports.updateMe = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+

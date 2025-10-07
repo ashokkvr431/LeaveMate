@@ -68,7 +68,7 @@ export class ProfileEditComponent implements OnInit {
       },
       error: (err) => {
         console.error('Update failed:', err);
-        alert('Profile update failed');
+        alert('Duplicate Employee ID or Server Error');
       },
     });
   }
