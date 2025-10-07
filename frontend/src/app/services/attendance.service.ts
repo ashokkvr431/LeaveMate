@@ -80,5 +80,6 @@ export class AttendanceService {
     return this.http.get<Attendance[]>(`${this.base}/today`);
   }
 
+
 }
   

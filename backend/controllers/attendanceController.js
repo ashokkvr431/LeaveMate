@@ -322,22 +322,22 @@ exports.listByEmp = async (req, res) => {
 // attendance summary
 exports.summary = async (req, res) => {
   try {
-    // total employees
-    const [total] = await db.query("SELECT COUNT(*) AS total FROM users");
+    const [[totalResult]] = await db.query("SELECT COUNT(*) AS total FROM users");
 
-    // present / late / early logout count for today
-    const [present] = await db.query(
+    const [[presentResult]] = await db.query(
       "SELECT COUNT(*) AS present FROM attendance WHERE date = CURDATE() AND status IN ('Present', 'Late', 'Early Logout', 'Normal Logout')"
     );
 
-    const totalEmployees = total[0].total || 0;
-    const presentCount = present[0].present || 0;
+    const totalEmployees = totalResult.total || 0;
+    const presentCount = presentResult.present || 0;
     const absentCount = totalEmployees - presentCount;
 
+    // Calculate the percentage of present employees
     const percentage = totalEmployees
       ? Math.round((presentCount / totalEmployees) * 100)
       : 0;
 
+    // Send the summary data as a JSON response
     res.json({
       total: totalEmployees,
       present: presentCount,
@@ -346,9 +346,10 @@ exports.summary = async (req, res) => {
     });
   } catch (err) {
     console.error("Attendance Summary Error:", err);
-    res.status(500).json({ error: "Failed to fetch summary" });
+    res.status(500).json({ error: "Failed to fetch attendance summary" });
   }
 };
+
 exports.listToday = async (req, res) => {
   try {
     const [rows] = await db.query(`

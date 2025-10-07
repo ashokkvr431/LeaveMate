@@ -25,6 +25,14 @@ export class AdminDashboardComponent implements OnInit {
       this.loadRejectedLeaves();
       this.loadAttendance();
       this.loadTodayAttendance(); 
+      this.attendanceService.getAttendanceSummary().subscribe(
+        (summary) => {
+          this.attendanceSummary = summary;
+        },
+        (error) => {
+          console.error('Failed to fetch attendance summary:', error);
+        }
+      );
     }
   }
 

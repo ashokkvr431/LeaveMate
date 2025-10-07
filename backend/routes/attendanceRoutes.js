@@ -15,5 +15,6 @@ router.get("/export/excel", attendanceController.exportExcel);
 router.get("/export/pdf", attendanceController.exportPdf);
 
 router.get("/today", attendanceController.listToday);
+router.get("/summary", attendanceController.summary);
 
 module.exports = router;

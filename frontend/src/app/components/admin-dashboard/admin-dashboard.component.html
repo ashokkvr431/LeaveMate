@@ -36,51 +36,48 @@
               {{ attendanceSummary.percentage }}%
             </div>
           </div>
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="row g-4 mt-2">
-
-    <!-- Approved Leaves -->
-    <div class="col-md-6" *ngIf="authService.isAdmin()">
-      <div class="card shadow border-0 h-100" style="cursor: pointer;" routerLink="/admin/leave/approved">
-        <div class="card-body text-center">
-          <i class="bi bi-check-circle-fill text-info fs-3"></i>
-          <h5 class="card-title">Approved Leaves</h5>
-          <p class="text-muted">All successfully approved requests.</p>
-          <h3 class="fw-bold text-info"> {{ approvedLeaves }}</h3>
         </div>
       </div>
     </div>
 
-    <!-- Rejected Leaves -->
-    <div class="col-md-6" *ngIf="authService.isAdmin()">
-      <div class="card shadow border-0 h-80" style="cursor: pointer;" routerLink="/admin/leave/rejected">
-        <div class="card-body text-center">
-          <i class="bi bi-x-circle-fill text-danger fs-3"></i>
-          <h5 class="card-title">Rejected Leaves</h5>
-          <p class="text-muted">All declined requests.</p>
-          <h3 class="fw-bold text-danger"> {{ rejectedLeaves }}</h3>
+    <!-- <div class="row g-4 mt-2"> -->
+
+      <!-- Approved Leaves -->
+      <div class="col-md-6" *ngIf="authService.isAdmin()">
+        <div class="card shadow border-0 h-100" style="cursor: pointer;" routerLink="/admin/leave/approved">
+          <div class="card-body text-center">
+            <i class="bi bi-check-circle-fill text-info fs-3"></i>
+            <h5 class="card-title">Approved Leaves</h5>
+            <p class="text-muted">All successfully approved requests.</p>
+            <h3 class="fw-bold text-info"> {{ approvedLeaves }}</h3>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rejected Leaves -->
+      <div class="col-md-6" *ngIf="authService.isAdmin()">
+        <div class="card shadow border-0 h-80" style="cursor: pointer;" routerLink="/admin/leave/rejected">
+          <div class="card-body text-center">
+            <i class="bi bi-x-circle-fill text-danger fs-3"></i>
+            <h5 class="card-title">Rejected Leaves</h5>
+            <p class="text-muted">All declined requests.</p>
+            <h3 class="fw-bold text-danger"> {{ rejectedLeaves }}</h3>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Announcements -->
-  <div class="row g-4 mt-4">
-    <div class="col-md-12" *ngIf="authService.isAdmin()">
-      <div class="card shadow border-0 h-80" style="cursor: pointer;" routerLink="/announcements">
-        <div class="card-body text-center">
-          <i class="bi bi-megaphone fs-2" style="color: #649b75;"></i>
-          <h5 class="card-title">Announcements</h5>
-          <p class="text-muted">Stay updated with the latest company news and events.</p>
-          <h6 class="fw-bold text-success">View Updates</h6>
+    <!-- Announcements -->
+    <div class="row g-4 mt-4">
+      <div class="col-md-12" *ngIf="authService.isAdmin()">
+        <div class="card shadow border-0 h-80" style="cursor: pointer;" routerLink="/announcements">
+          <div class="card-body text-center">
+            <i class="bi bi-megaphone fs-2" style="color: #649b75;"></i>
+            <h5 class="card-title">Announcements</h5>
+            <p class="text-muted">Stay updated with the latest company news and events.</p>
+            <h6 class="fw-bold text-success">View Updates</h6>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>

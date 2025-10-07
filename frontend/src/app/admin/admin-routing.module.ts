@@ -19,7 +19,9 @@ const routes: Routes = [
   { path: 'profile/edit', component: ProfileEditComponent },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' }
-];
+];  
+ 
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
